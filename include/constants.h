@@ -3,43 +3,43 @@
 #include <vector>
 // using namespace std;
 // Number of solenoids per string
-const int lowESols;
-const int aSols;
-const int dSols;
-const int gSols;
-const int bSols;
-const int highESols;
+extern const int lowESols;
+extern const int aSols;
+extern const int dSols;
+extern const int gSols;
+extern const int bSols;
+extern const int highESols;
 
 // Pin vectors
-vector<int> lowEPinVec;
-vector<int> aPinVec;
-vector<int> dPinVec;
-vector<int> gPinVec;
-vector<int> bPinVec;
-vector<int> highEPinVec;
+extern std::vector<int> lowEPinVec;
+extern std::vector<int> aPinVec;
+extern std::vector<int> dPinVec;
+extern std::vector<int> gPinVec;
+extern std::vector<int> bPinVec;
+extern std::vector<int> highEPinVec;
 
 /*
 MIDI VALUES for each string
 */
-const int E2;
-const int A2;
-const int D3;
-const int G3;
-const int B3;
-const int E4;
+extern const int EStrMidi;
+extern const int AStrMidi;
+extern const int DStrMidi;
+extern const int GStrMidi;
+extern const int BStrMidi;
+extern const int highEStrMidi;
 
 // Active solenoids, key is pin number, value is active state (bool)
-map<int, bool> activeLowE;
-map<int, bool> activeA;
-map<int, bool> activeD;
-map<int, bool> activeG;
-map<int, bool> activeB;
-map<int, bool> activeHighE;
+extern std::map<int, bool> activeLowE;
+extern std::map<int, bool> activeA;
+extern std::map<int, bool> activeD;
+extern std::map<int, bool> activeG;
+extern std::map<int, bool> activeB;
+extern std::map<int, bool> activeHighE;
 
 // Key is midi value, value is pin number
-map<int, int> lowEPins;
-map<int, int> aPins;
-map<int, int> dPins;
-map<int, int> gPins;
-map<int, int> bPins;
-map<int, int> highEPins;
+extern std::map<int, int> lowEPins;
+extern std::map<int, int> aPins;
+extern std::map<int, int> dPins;
+extern std::map<int, int> gPins;
+extern std::map<int, int> bPins;
+extern std::map<int, int> highEPins;

@@ -1,7 +1,7 @@
 #pragma once
 #include <map>
 #include <vector>
-using namespace std;
+// using namespace std;
 // Number of solenoids per string
 const int lowESols;
 const int aSols;

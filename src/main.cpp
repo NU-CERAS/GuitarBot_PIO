@@ -29,65 +29,65 @@ void setup() {
   }
 
   // Initialize midi to pin assignment maps
-  for (int i = 0; i < (lowEPinVec.size() + 1); i++) {
+  for (size_t i = 0; i < (lowEPinVec.size() + 1); i++) {
       if (i == 0) {
-        lowEPins[E2] = -1;
+        lowEPins[EStrMidi] = -1;
       }
       else {
-          lowEPins[E2 + i] = lowEPinVec[i-1];
+          lowEPins[EStrMidi + i] = lowEPinVec[i-1];
       }
   }
-  for (int i = 0; i < (aPinVec.size() + 1); i++) {
+  for (size_t i = 0; i < (aPinVec.size() + 1); i++) {
       if (i == 0) {
-          aPins[A2] = -1;
+          aPins[AStrMidi] = -1;
       }
       else {
-          aPins[A2 + i] = aPinVec[i-1];
+          aPins[AStrMidi + i] = aPinVec[i-1];
       }
   }
-  for (int i = 0; i < (dPinVec.size() + 1); i++) {
+  for (size_t i = 0; i < (dPinVec.size() + 1); i++) {
       if (i == 0) {
-          dPins[D3] = -1;
+          dPins[DStrMidi] = -1;
       }
       else {
-          dPins[D3 + i] = dPinVec[i-1];
+          dPins[DStrMidi + i] = dPinVec[i-1];
       }
   }
-  for (int i = 0; i < (gPinVec.size() + 1); i++) {
+  for (size_t i = 0; i < (gPinVec.size() + 1); i++) {
       if (i == 0) {
-          gPins[G3] = -1;
+          gPins[GStrMidi] = -1;
       }
       else {
-          gPins[G3 + i] = gPinVec[i-1];
+          gPins[GStrMidi + i] = gPinVec[i-1];
       }
   }
-  for (int i = 0; i < (bPinVec.size() + 1); i++) {
+  for (size_t i = 0; i < (bPinVec.size() + 1); i++) {
       if (i == 0) {
-          bPins[B3] = -1;
+          bPins[BStrMidi] = -1;
       }
       else {
-          bPins[B3 + i] = bPinVec[i-1];
+          bPins[BStrMidi + i] = bPinVec[i-1];
       }
   }
-  for (int i = 0; i < (highEPinVec.size() + 1); i++) {
+  for (size_t i = 0; i < (highEPinVec.size() + 1); i++) {
       if (i == 0) {
-          highEPins[E4] = -1;
+          highEPins[highEStrMidi] = -1;
       }
       else {
-          highEPins[E4 + i] = highEPinVec[i-1];
+          highEPins[highEStrMidi + i] = highEPinVec[i-1];
       }
   }
-  std::cout << lowEPins.size() << std::endl;
-  std::cout << aPins.size() << std::endl;
-  std::cout << dPins.size() << std::endl;
-  std::cout << gPins.size() << std::endl;
-  std::cout << bPins.size() << std::endl;
-  std::cout << highEPins.size() << std::endl;
 }
 
 void loop() {
   
-  printMIDIMessage();
+  //printMIDIMessage();
+  Serial.println(lowEPins.size());
+  Serial.println(aPins.size());
+  Serial.println(dPins.size());
+  Serial.println(gPins.size());
+  Serial.println(bPins.size());
+  Serial.println(highEPins.size());
 }
 
 // put function definitions here:

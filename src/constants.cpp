@@ -2,43 +2,81 @@
 using namespace std;
 
 // Number of solenoids per string
-// 5 is arbitrary
-const int lowESols = 3;
-const int aSols = 3;   
-const int dSols = 3;
-const int gSols = 3;
-const int bSols = 3;
-const int highESols = 3;
+// 3 is arbitrary
+const int string1Sols = 3;
+const int string2Sols = 3;   
+const int string3Sols = 3;
+const int string4Sols = 3;
+const int string5Sols = 3;
+const int string6Sols = 3;
 
-// Pin vectors, MUST be in consecutive order from lowest to highest solenoid
-std::vector<int> lowEPinVec = {1,2,3};
-std::vector<int> aPinVec = {4,5,6};
-std::vector<int> dPinVec = {7,8,9};
-std::vector<int> gPinVec = {10,11,12};
-std::vector<int> bPinVec = {13,14,15};
-std::vector<int> highEPinVec = {16,17,18};
+// Solenoid pin vectors, must be in consecutive order from lowest to highest solenoid
+std::vector<int> string1PinVec = {1,2,3};
+std::vector<int> string2PinVec = {4,5,6};
+std::vector<int> string3PinVec = {7,8,9};
+std::vector<int> string4PinVec = {10,11,12};
+std::vector<int> string5PinVec = {13,14,15};
+std::vector<int> string6PinVec = {16,17,18};
+
+const std::array<std::vector<int>, 6> stringPinVecs = {
+    string1PinVec, 
+    string2PinVec, 
+    string3PinVec, 
+    string4PinVec, 
+    string5PinVec, 
+    string6PinVec
+};
 
 // MIDI VALUES
-const int EStrMidi = 40;
-const int AStrMidi = 45;
-const int DStrMidi = 50;
-const int GStrMidi = 55;
-const int BStrMidi = 59;
-const int highEStrMidi = 64;
+const int string1Midi = 40;
+const int string2Midi = 45;
+const int string3Midi = 50;
+const int string4Midi = 55;
+const int string5Midi = 59;
+const int string6Midi = 64;
+
+const std::array<int, 6> stringMidiValues = {
+    string1Midi,
+    string2Midi,
+    string3Midi,
+    string4Midi,
+    string5Midi,
+    string6Midi
+};
 
 
 // Active solenoid vectors {pin number : active bool}
-std::map<int, bool> activeLowE = {};
-std::map<int, bool> activeA = {};
-std::map<int, bool> activeD = {};
-std::map<int, bool> activeG = {};
-std::map<int, bool> activeB = {};
-std::map<int, bool> activeHighE = {};
+std::map<int, bool> activeString1 = {};
+std::map<int, bool> activeString2 = {};
+std::map<int, bool> activeString3 = {};
+std::map<int, bool> activeString4 = {};
+std::map<int, bool> activeString5 = {};
+std::map<int, bool> activeString6 = {};
+
+std::array<std::map<int, bool>, 6> activeStringMaps = {
+    activeString1,
+    activeString2,
+    activeString3,
+    activeString4,
+    activeString5,
+    activeString6
+};
 
 // Pin assignments {midi : pin number}
-std::map<int, int> lowEPins = {};
-std::map<int, int> aPins = {};
-std::map<int, int> dPins = {};
-std::map<int, int> gPins = {};
-std::map<int, int> bPins = {};
-std::map<int, int> highEPins = {};
+std::map<int, int> string1MidiToPin = {};
+std::map<int, int> string2MidiToPin = {};
+std::map<int, int> string3MidiToPin = {};
+std::map<int, int> string4MidiToPin = {};
+std::map<int, int> string5MidiToPin = {};
+std::map<int, int> string6MidiToPin = {};
+
+std::array<std::map<int, int>, 6> MidiToPinMaps = {
+    string1MidiToPin,
+    string2MidiToPin,
+    string3MidiToPin,
+    string4MidiToPin,
+    string5MidiToPin,
+    string6MidiToPin
+};
+
+

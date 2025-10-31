@@ -33,6 +33,7 @@ extern const int string6Midi;
 extern const std::array<int, 6> stringMidiValues;
 
 // Active solenoids, key is pin number, value is active state (bool)
+// Change to bool?
 extern std::map<int, bool> activeString1;
 extern std::map<int, bool> activeString2;
 extern std::map<int, bool> activeString3;

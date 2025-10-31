@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "midihandler.h"
 #include "constants.h"
+#include "solenoid-control.h"
 
 // void printMIDIMessage() {
 //     while (usbMIDI.read()) {
@@ -28,12 +29,12 @@ void readAndProcessMIDI() {
         byte velocity = usbMIDI.getData2(); // Get MIDI velocity (how hard to hit)
 
         // handles midi by channel, channel 1: E (lower) -> channel 6: E (higher) 
-        if (note == 1) processMIDIByChannel(type, channel, note, velocity, lowEPins);
-        else if (note == 2) processMIDIByChannel(type, channel, note, velocity, aPins);
-        else if (note == 3) processMIDIByChannel(type, channel, note, velocity, dPins);
-        else if (note == 4) processMIDIByChannel(type, channel, note, velocity, gPins);
-        else if (note == 5) processMIDIByChannel(type, channel, note, velocity, bPins);
-        else if (note == 6) processMIDIByChannel(type, channel, note, velocity, highEPins);
+        if (channel == 1) processMIDIByChannel(type, channel, note, velocity, string1MidiToPin);
+        else if (channel == 2) processMIDIByChannel(type, channel, note, velocity, string2MidiToPin);
+        else if (channel == 3) processMIDIByChannel(type, channel, note, velocity, string3MidiToPin);
+        else if (channel == 4) processMIDIByChannel(type, channel, note, velocity, string4MidiToPin);
+        else if (channel == 5) processMIDIByChannel(type, channel, note, velocity, string5MidiToPin);
+        else if (channel == 6) processMIDIByChannel(type, channel, note, velocity, string6MidiToPin);
     }
 
 }
@@ -45,12 +46,12 @@ void processMIDIByChannel(byte type, byte channel, byte note, byte velocity, std
 
     // turns solenoid on
     if (type == usbMIDI.NoteOn) {
-        
+        solenoidOn(solenoidPin, channel - 1, stringMCPs[channel - 1]); // channel - 1 to match string index
     }
 
     // turns solenoid off
     else if (type == usbMIDI.NoteOff) {
-
+        solenoidOff(solenoidPin, channel - 1, stringMCPs[channel - 1]); // channel - 1 to match string index
     }
 
 }

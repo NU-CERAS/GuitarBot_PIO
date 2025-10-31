@@ -10,21 +10,12 @@ void initializeMidiToPinMap(std::vector<int> pinVec, std::map<int, int> &midiToP
 
 // Assume we have 6 MCP23008 for 6 strings
 // Adjust as needed
-Adafruit_MCP23X08 string1MCP;
-Adafruit_MCP23X08 string2MCP;
-Adafruit_MCP23X08 string3MCP;
-Adafruit_MCP23X08 string4MCP;
-Adafruit_MCP23X08 string5MCP;
-Adafruit_MCP23X08 string6MCP;
+const int numMCPs = 6;
 
-std::array<Adafruit_MCP23X08, 6> stringMCPs = {
-    string1MCP,
-    string2MCP,
-    string3MCP,
-    string4MCP,
-    string5MCP,
-    string6MCP
-};
+Adafruit_MCP23X08 stringMCPs[numMCPs];
+
+uint8_t mcpAddresses[numMCPs] = {0x20, 0x21, 0x22, 0x23, 0x24, 0x25};
+
 
 void setup() {
   // put your setup code here, to run once:
@@ -32,12 +23,9 @@ void setup() {
 
   // Initialize each multiplexer
   // Update addresses for actual board configuration
-  string1MCP.begin_I2C(0x20);
-  string2MCP.begin_I2C(0x21);
-  string3MCP.begin_I2C(0x22);
-  string4MCP.begin_I2C(0x23);
-  string5MCP.begin_I2C(0x24);
-  string6MCP.begin_I2C(0x25);
+  for (int i = 0; i < numMCPs; i++) {
+      stringMCPs[i].begin_I2C(mcpAddresses[i]);
+  }
 
   // Initialize active solenoid maps
   for (size_t i = 0; i < stringPinVecs.size(); i++) {
@@ -53,6 +41,7 @@ void setup() {
 void loop() {
   
   //printMIDIMessage();
+  // readAndProcessMIDI();
   Serial.println("Low E Size:" + String(string1MidiToPin.size()));
   Serial.println("A Size:" + String(string2MidiToPin.size()));
   Serial.println("D Size:" + String(string3MidiToPin.size()));

@@ -41,13 +41,15 @@ void setup() {
 void loop() {
   
   //printMIDIMessage();
-  // readAndProcessMIDI();
+  readAndProcessMIDI();
+  /*
   Serial.println("Low E Size:" + String(string1MidiToPin.size()));
   Serial.println("A Size:" + String(string2MidiToPin.size()));
   Serial.println("D Size:" + String(string3MidiToPin.size()));
   Serial.println("G Size:" + String(string4MidiToPin.size()));
   Serial.println("B Size:" + String(string5MidiToPin.size()));
   Serial.println("High E Size:" + String(string6MidiToPin.size()));
+  */
 }
 
 // put function definitions here:

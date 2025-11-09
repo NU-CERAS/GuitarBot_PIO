@@ -46,14 +46,14 @@ const std::array<int, 6> stringMidiValues = {
 
 
 // Active solenoid vectors {pin number : active bool}
-std::map<int, bool> activeString1 = {};
-std::map<int, bool> activeString2 = {};
-std::map<int, bool> activeString3 = {};
-std::map<int, bool> activeString4 = {};
-std::map<int, bool> activeString5 = {};
-std::map<int, bool> activeString6 = {};
+bool activeString1 = false;
+bool activeString2 = false;
+bool activeString3 = false;
+bool activeString4 = false;
+bool activeString5 = false;
+bool activeString6 = false;
 
-std::array<std::map<int, bool>, 6> activeStringMaps = {
+std::array<bool, 6> activeStringMaps = {
     activeString1,
     activeString2,
     activeString3,

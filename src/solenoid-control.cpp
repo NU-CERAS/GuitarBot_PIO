@@ -20,24 +20,23 @@ void initializeSolenoids() {
 void solenoidOn(int pin, int stringIndex, Adafruit_MCP23X08 &mcp) {
 
     // Check if another solenoid is already active on this string
-    std::map<int, bool> &activeMap = activeStringMaps[stringIndex];
-    for (std::pair<const int, bool> &solenoid : activeMap) {
-        if (solenoid.second) {
+    bool &activeString = activeStringMaps[stringIndex];
+    if(activeString) {
             // Another solenoid is active on this string, ABORT
             Serial.println("Warning: Another solenoid is already active on string " + String(stringIndex + 1));
             return;
-        }
+        
     }
 
     // Activate the solenoid
     mcp.digitalWrite(pin, HIGH);
 
     // Mark this solenoid as active
-    activeMap[pin] = true;
-}
+    activeString = true;
+    }
 
 // Deactivates the solenoid on the specified pin for the given string
 void solenoidOff(int pin, int stringIndex, Adafruit_MCP23X08 &mcp) {
     mcp.digitalWrite(pin, LOW);
-    activeStringMaps[stringIndex][pin] = false;
+    activeStringMaps[stringIndex] = false;
 }

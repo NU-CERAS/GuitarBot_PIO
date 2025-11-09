@@ -40,8 +40,9 @@ void setup() {
 
 void loop() {
   
-  //printMIDIMessage();
+  printMIDIMessage();
   readAndProcessMIDI();
+  //Serial.println("Main Loop Executed");
   /*
   Serial.println("Low E Size:" + String(string1MidiToPin.size()));
   Serial.println("A Size:" + String(string2MidiToPin.size()));

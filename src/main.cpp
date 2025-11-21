@@ -1,77 +1,113 @@
 #include <Arduino.h>
-#include <Adafruit_MCP23X08.h>
+#include "core_pins.h"
+#include <Adafruit_MCP23X17.h>
 #include "midihandler.h"
 #include "constants.h"
+#include "solenoid_events.h"
+#include "solenoid-control.h"
 #include <iostream>
-// put function declarations here:
 
-void initializeActiveSolenoidMap(std::vector<int> pinVec, bool &activeString, Adafruit_MCP23X08 &mcp);
+#include <FreeRTOS.h>
+#include <task.h>
+
+// -------------------- FUNCTION DECLARATIONS --------------------
+
+void initializeActiveSolenoidMap(std::vector<int> pinVec, bool &activeString, Adafruit_MCP23X17 &mcp);
 void initializeMidiToPinMap(std::vector<int> pinVec, std::map<int, int> &midiToPinMap, int baseMidiValue);
 
-// Assume we have 6 MCP23008 for 6 strings
-// Adjust as needed
+// -------------------- GLOBALS --------------------
+
 const int numMCPs = 6;
-
-Adafruit_MCP23X08 stringMCPs[numMCPs];
-
+Adafruit_MCP23X17 stringMCPs[numMCPs];
 uint8_t mcpAddresses[numMCPs] = {0x20, 0x21, 0x22, 0x23, 0x24, 0x25};
 
+QueueHandle_t solenoidQueue; // RTOS Queue for solenoid events
 
-void setup() {
-  // put your setup code here, to run once:
-  Serial.begin(9600);
 
-  // Initialize each multiplexer
-  // Update addresses for actual board configuration
-  for (int i = 0; i < numMCPs; i++) {
-      stringMCPs[i].begin_I2C(mcpAddresses[i]);
-  }
+// -------------------- FREERTOS TASK --------------------
 
-  // Initialize active solenoid maps
-  for (size_t i = 0; i < stringPinVecs.size(); i++) {
-      initializeActiveSolenoidMap(stringPinVecs[i], activeStringMaps[i], stringMCPs[i]);
-  }
-
-  // Initialize midi to pin assignment maps
-  for (size_t i = 0; i < MidiToPinMaps.size(); i++) {
-      initializeMidiToPinMap(stringPinVecs[i], MidiToPinMaps[i], stringMidiValues[i]);
-  }
-}
-
-void loop() {
-  
-  printMIDIMessage();
-  readAndProcessMIDI();
-  //Serial.println("Main Loop Executed");
-  /*
-  Serial.println("Low E Size:" + String(string1MidiToPin.size()));
-  Serial.println("A Size:" + String(string2MidiToPin.size()));
-  Serial.println("D Size:" + String(string3MidiToPin.size()));
-  Serial.println("G Size:" + String(string4MidiToPin.size()));
-  Serial.println("B Size:" + String(string5MidiToPin.size()));
-  Serial.println("High E Size:" + String(string6MidiToPin.size()));
-  */
-}
-
-// put function definitions here:
-
-// initializes the active solenoid map for a string
-void initializeActiveSolenoidMap(std::vector<int> pinVec, bool &activeString, Adafruit_MCP23X08 &mcp) {
-    for (int pin : pinVec) {
-        activeString = false;
-        mcp.pinMode(pin, OUTPUT);
+void TaskMIDI(void* pvParams) {
+    SolenoidEvent e;
+    while(true) {
+        // Process all available MIDI messages
+        while(readAndProcessMIDI(&e)) {
+            xQueueSend(solenoidQueue, &e, 0);
+        }
+        vTaskDelay(pdMS_TO_TICKS(1));
     }
 }
 
-// initializes the midi to pin assignment map for a string
+void TaskSolenoids(void* pvParams) {
+    SolenoidEvent event;
+    while(true) {
+        if(xQueueReceive(solenoidQueue, &event, pdMS_TO_TICKS(1))) {
+            int stringIndex = event.stringIndex;
+            int pin = event.pin;
+
+            if(event.on) solenoidOn(pin, stringIndex, stringMCPs[stringIndex]);
+            else solenoidOff(pin, stringIndex, stringMCPs[stringIndex]);
+        }
+        vTaskDelay(pdMS_TO_TICKS(1));
+    }
+}
+
+// -------------------- SETUP --------------------
+
+void setup() {
+    Serial.begin(9600);
+
+    // Initialize MCP expanders
+    for (int i = 0; i < numMCPs; i++) {
+        stringMCPs[i].begin_I2C(mcpAddresses[i]);
+    }
+
+    // Initialize solenoid maps
+    for (size_t i = 0; i < stringPinVecs.size(); i++) {
+        initializeActiveSolenoidMap(stringPinVecs[i], activeStringMaps[i], stringMCPs[i]);
+    }
+
+    // Initialize MIDI→Pin assignments
+    for (size_t i = 0; i < MidiToPinMaps.size(); i++) {
+        initializeMidiToPinMap(stringPinVecs[i], MidiToPinMaps[i], stringMidiValues[i]);
+    }
+
+    // ---- Create FreeRTOS Tasks ----
+    xTaskCreate(
+        TaskMIDI,         // task function
+        "MIDI Task",      // name
+        4096,             // stack size (Teensy needs plenty)
+        NULL,             // parameter
+        1,                // priority
+        NULL              // task handle
+    );
+    // Create task for Solenoids**
+
+    // Start FreeRTOS
+    vTaskStartScheduler();
+}
+
+// -------------------- LOOP (Unused) --------------------
+
+void loop() {
+    // Empty — FreeRTOS controls execution now
+}
+
+// -------------------- FUNCTION DEFINITIONS --------------------
+
+void initializeActiveSolenoidMap(std::vector<int> pinVec, bool &activeString, Adafruit_MCP23X17 &mcp) {
+    activeString = false;
+    for (int pin : pinVec) {
+        mcp.pinMode(pin, 0x01);  // OUTPUT
+    }
+}
+
 void initializeMidiToPinMap(std::vector<int> pinVec, std::map<int, int> &midiToPinMap, int baseMidiValue) {
-  for (size_t i = 0; i < (pinVec.size() + 1); i++) {
-      if (i == 0) {
-          midiToPinMap[baseMidiValue] = -1;
-      }
-      else {
-          midiToPinMap[baseMidiValue + i] = pinVec[i-1];
-      }
-  }
+    for (size_t i = 0; i < (pinVec.size() + 1); i++) {
+        if (i == 0) {
+            midiToPinMap[baseMidiValue] = -1;
+        } else {
+            midiToPinMap[baseMidiValue + i] = pinVec[i - 1];
+        }
+    }
 }
 

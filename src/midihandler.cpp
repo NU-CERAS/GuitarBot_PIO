@@ -21,6 +21,8 @@ void printMIDIMessage() {
     }
 }
 
+// REFACTOR for RTOS
+/*
 void readAndProcessMIDI() {
     //Serial.println("WE are in readAndProcessMIDI");
     while (usbMIDI.read()) { // Process all available incoming MIDI messages
@@ -39,7 +41,24 @@ void readAndProcessMIDI() {
     }
 
 }
+*/
+// Refactor for RTOS
+bool processMIDIByChannel(byte type, byte channel, byte note, byte velocity, SolenoidEvent* event) {
+    auto midiToPinDict = getMidiToPinDict(channel);
+    if(!midiToPinDict) return false;
 
+    int solenoidPin = (*midiToPinDict)[note];
+
+    if(type == usbMIDI.NoteOn && velocity > 0) event->on = true;
+    else if(type == usbMIDI.NoteOff || (type == usbMIDI.NoteOn && velocity == 0)) event->on = false;
+    else return false; // irrelevant message
+
+    event->pin = solenoidPin;
+    event->stringIndex = channel;
+    return true;
+}
+
+/*
 // function that handles a midi signal by channel, channel 1: E (lower) -> channel 6: E (higher) 
 void processMIDIByChannel(byte type, byte channel, byte note, byte velocity, std::map<int, int>midiToPinDict) {
     // maps the midi to solenoid
@@ -63,3 +82,4 @@ void processMIDIByChannel(byte type, byte channel, byte note, byte velocity, std
     
 
 }
+    */

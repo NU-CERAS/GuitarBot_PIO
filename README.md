@@ -1,4 +1,5 @@
-**Dev Log**\n
+**Dev Log**
+</n>
 Jan 11 2026:
 * MIDI pipeline working for midihandler.cpp - no note conflicts or odd inputs
 * No need for RTOS

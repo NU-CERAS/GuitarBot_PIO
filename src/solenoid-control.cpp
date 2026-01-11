@@ -30,7 +30,9 @@ void solenoidOn(int pin, int stringIndex, Adafruit_MCP23X08 &mcp) {
     }
 
     // Activate the solenoid
-    mcp.digitalWrite(pin, HIGH);
+    // mcp.digitalWrite(pin, HIGH);
+    Serial.println("solenoid on! pin number:");
+    Serial.println(pin);
 
     // Mark this solenoid as active
     activeMap[pin] = true;
@@ -38,6 +40,6 @@ void solenoidOn(int pin, int stringIndex, Adafruit_MCP23X08 &mcp) {
 
 // Deactivates the solenoid on the specified pin for the given string
 void solenoidOff(int pin, int stringIndex, Adafruit_MCP23X08 &mcp) {
-    mcp.digitalWrite(pin, LOW);
+    // mcp.digitalWrite(pin, LOW);
     activeStringMaps[stringIndex][pin] = false;
 }

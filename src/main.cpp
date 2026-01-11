@@ -5,7 +5,7 @@
 #include <iostream>
 // put function declarations here:
 
-void initializeActiveSolenoidMap(std::vector<int> pinVec, std::map<int, bool> &activeMap, Adafruit_MCP23X08 &mcp);
+void initializeActiveSolenoidMap(std::vector<int> pinVec, bool &activeString, Adafruit_MCP23X08 &mcp);
 void initializeMidiToPinMap(std::vector<int> pinVec, std::map<int, int> &midiToPinMap, int baseMidiValue);
 
 // Assume we have 6 MCP23008 for 6 strings
@@ -43,6 +43,7 @@ void setup() {
 
 void loop() {
   
+<<<<<<< HEAD
   readAndProcessMIDI();
   
 //   Serial.println("Low E Size:" + String(string1MidiToPin.size()));
@@ -52,14 +53,27 @@ void loop() {
 //   Serial.println("B Size:" + String(string5MidiToPin.size()));
 //   Serial.println("High E Size:" + String(string6MidiToPin.size()));
   
+=======
+  printMIDIMessage();
+  readAndProcessMIDI();
+  //Serial.println("Main Loop Executed");
+  /*
+  Serial.println("Low E Size:" + String(string1MidiToPin.size()));
+  Serial.println("A Size:" + String(string2MidiToPin.size()));
+  Serial.println("D Size:" + String(string3MidiToPin.size()));
+  Serial.println("G Size:" + String(string4MidiToPin.size()));
+  Serial.println("B Size:" + String(string5MidiToPin.size()));
+  Serial.println("High E Size:" + String(string6MidiToPin.size()));
+  */
+>>>>>>> 9da4b2aa4e99f470ff4bb8dd01524f194388c263
 }
 
 // function definitions
 
 // initializes the active solenoid map for a string
-void initializeActiveSolenoidMap(std::vector<int> pinVec, std::map<int, bool> &activeMap, Adafruit_MCP23X08 &mcp) {
+void initializeActiveSolenoidMap(std::vector<int> pinVec, bool &activeString, Adafruit_MCP23X08 &mcp) {
     for (int pin : pinVec) {
-        activeMap[pin] = false;
+        activeString = false;
         mcp.pinMode(pin, OUTPUT);
     }
 }

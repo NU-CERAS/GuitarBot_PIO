@@ -60,4 +60,7 @@ void processMIDIByChannel(byte type, byte channel, byte note, byte velocity, std
         solenoidOff(solenoidPin, channel - 1, stringMCPs[channel - 1]); // channel - 1 to match string index
     }
 
+
+    
+
 }

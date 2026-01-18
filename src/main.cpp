@@ -1,18 +1,18 @@
 #include <Arduino.h>
-#include <Adafruit_MCP23X08.h>
+#include <Adafruit_MCP23X17.h>
 #include "midihandler.h"
 #include "constants.h"
 #include <iostream>
 // put function declarations here:
 
-void initializeActiveSolenoidMap(std::vector<int> pinVec, bool &activeString, Adafruit_MCP23X08 &mcp);
+void initializeActiveSolenoidMap(std::vector<int> pinVec, bool &activeString, Adafruit_MCP23X17 &mcp);
 void initializeMidiToPinMap(std::vector<int> pinVec, std::map<int, int> &midiToPinMap, int baseMidiValue);
 
-// Assume we have 6 MCP23008 for 6 strings
+// Assume we have 6 MCP23017 for 6 strings
 // Adjust as needed
 const int numMCPs = 6;
 
-Adafruit_MCP23X08 stringMCPs[numMCPs];
+Adafruit_MCP23X17 stringMCPs[numMCPs];
 
 uint8_t mcpAddresses[numMCPs] = {0x20, 0x21, 0x22, 0x23, 0x24, 0x25}; // tbd
 
@@ -43,7 +43,6 @@ void setup() {
 
 void loop() {
   
-<<<<<<< HEAD
   readAndProcessMIDI();
   
 //   Serial.println("Low E Size:" + String(string1MidiToPin.size()));
@@ -53,27 +52,14 @@ void loop() {
 //   Serial.println("B Size:" + String(string5MidiToPin.size()));
 //   Serial.println("High E Size:" + String(string6MidiToPin.size()));
   
-=======
-  printMIDIMessage();
-  readAndProcessMIDI();
-  //Serial.println("Main Loop Executed");
-  /*
-  Serial.println("Low E Size:" + String(string1MidiToPin.size()));
-  Serial.println("A Size:" + String(string2MidiToPin.size()));
-  Serial.println("D Size:" + String(string3MidiToPin.size()));
-  Serial.println("G Size:" + String(string4MidiToPin.size()));
-  Serial.println("B Size:" + String(string5MidiToPin.size()));
-  Serial.println("High E Size:" + String(string6MidiToPin.size()));
-  */
->>>>>>> 9da4b2aa4e99f470ff4bb8dd01524f194388c263
 }
 
 // function definitions
 
 // initializes the active solenoid map for a string
-void initializeActiveSolenoidMap(std::vector<int> pinVec, bool &activeString, Adafruit_MCP23X08 &mcp) {
+void initializeActiveSolenoidMap(std::vector<int> pinVec, bool &activeString, Adafruit_MCP23X17 &mcp) {
+    activeString = false;
     for (int pin : pinVec) {
-        activeString = false;
         mcp.pinMode(pin, OUTPUT);
     }
 }

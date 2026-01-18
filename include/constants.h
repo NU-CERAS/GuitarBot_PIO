@@ -2,13 +2,6 @@
 #include <map>
 #include <vector>
 // using namespace std;
-// Number of solenoids per string
-extern const int string1Sols;
-extern const int string2Sols;
-extern const int string3Sols;
-extern const int string4Sols;
-extern const int string5Sols;
-extern const int string6Sols;
 
 // Pin vectors
 extern std::vector<int> string1PinVec;

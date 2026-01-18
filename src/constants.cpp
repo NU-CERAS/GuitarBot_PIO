@@ -1,16 +1,9 @@
 #include "constants.h"
 using namespace std;
 
-// Number of solenoids per string
-// 3 is arbitrary
-const int string1Sols = 3;
-const int string2Sols = 3;   
-const int string3Sols = 3;
-const int string4Sols = 3;
-const int string5Sols = 3;
-const int string6Sols = 3;
-
 // Solenoid pin vectors, must be in consecutive order from lowest to highest solenoid
+
+// THESE ARE ARBITRARY VALUES, MUST BE REPLACED WITH ACTUAL PIN NUMBERS 
 std::vector<int> string1PinVec = {1,2,3};
 std::vector<int> string2PinVec = {4,5,6};
 std::vector<int> string3PinVec = {7,8,9};

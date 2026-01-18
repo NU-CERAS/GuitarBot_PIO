@@ -1,5 +1,10 @@
 **Dev Log**
 </n>
+Jan 18 2026:
+* Rewrote solenoid control functions for CMOS compatability in cmos branch
+* Simplified string pin vector logic in cmos branch
+* Plan for next time: Test midi to pin logic with CMOS board
+
 Jan 11 2026:
 * MIDI pipeline working for midihandler.cpp - no note conflicts or odd inputs
 * No need for RTOS

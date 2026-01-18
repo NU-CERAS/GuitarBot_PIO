@@ -1,31 +1,8 @@
 #include "constants.h"
 using namespace std;
 
-// Number of solenoids per string
-// 3 is arbitrary
-const int string1Sols = 3;
-const int string2Sols = 3;   
-const int string3Sols = 3;
-const int string4Sols = 3;
-const int string5Sols = 3;
-const int string6Sols = 3;
-
 // Solenoid pin vectors, must be in consecutive order from lowest to highest solenoid
-std::vector<int> string1PinVec = {1,2,3};
-std::vector<int> string2PinVec = {4,5,6};
-std::vector<int> string3PinVec = {7,8,9};
-std::vector<int> string4PinVec = {10,11,12};
-std::vector<int> string5PinVec = {13,14,15};
-std::vector<int> string6PinVec = {16,17,18};
-
-const std::array<std::vector<int>, 6> stringPinVecs = {
-    string1PinVec, 
-    string2PinVec, 
-    string3PinVec, 
-    string4PinVec, 
-    string5PinVec, 
-    string6PinVec
-};
+std::vector<int> stringPinVec = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
 
 // MIDI VALUES
 const int string1Midi = 40;

@@ -2,22 +2,16 @@
 #include "constants.h"
 #include <Arduino.h>
 
-void initializeSolenoids() {
-/*
-  for (int n = 0; n < 6; n++) {
-    for (int i = 0; i < NUM_SERVOS; i++) {
-        servos[i].attach(servoPins[i]);    // Attach the servo to its PWM pin
-        servos[i].write(neutPos[i]);        // Move the servo to its neutral position
-
-        hatPedServo.attach(HATP_SERVO_PIN);
-        hatPedServo.write(hatPedRestAngle); // Start in resting position  
-    }
-  }
-*/
-}
+// need to write to 2 pins?
+// PMOS active low
+// NMOS active high
+// base 4 counting system
+// 4 digit is PMOS
+// 1 digit is NMOS
+// to write to solenoid n, set PMOS to (n // 4) and NMOS to (n % 4)
 
 // Activates the solenoid on the specified pin for the given string
-void solenoidOn(int pin, int stringIndex, Adafruit_MCP23X08 &mcp) {
+void solenoidOn(int pin, int stringIndex, Adafruit_MCP23X17 &mcp) {
 
     // Check if another solenoid is already active on this string
     bool &activeString = activeStringMaps[stringIndex];
@@ -28,8 +22,19 @@ void solenoidOn(int pin, int stringIndex, Adafruit_MCP23X08 &mcp) {
         
     }
 
+    // check if solenoid actuation needed
+    if (pin == -1) {
+        activeString = true;
+        return;
+    }
+
     // Activate the solenoid
-    // mcp.digitalWrite(pin, HIGH);
+    // Calculate PMOS and NMOS values
+    int pmosValue = (int) std::floor(pin / 4);
+    int nmosValue = pin % 4;
+
+    turnOff(pmosValue, mcp); // Activate PMOS
+    turnOn(nmosValue, mcp); // Activate NMOS
     Serial.println("solenoid on! pin number:");
     Serial.println(pin);
 
@@ -38,12 +43,29 @@ void solenoidOn(int pin, int stringIndex, Adafruit_MCP23X08 &mcp) {
     }
 
 // Deactivates the solenoid on the specified pin for the given string
-void solenoidOff(int pin, int stringIndex, Adafruit_MCP23X08 &mcp) {
-<<<<<<< HEAD
-    // mcp.digitalWrite(pin, LOW);
-    activeStringMaps[stringIndex][pin] = false;
-=======
-    mcp.digitalWrite(pin, LOW);
+void solenoidOff(int pin, int stringIndex, Adafruit_MCP23X17 &mcp) {
+
+    // no solenoid to turn off
+    if (pin == -1) {
+        activeStringMaps[stringIndex] = false;
+        return;
+    }
+
+    // Deactivate the solenoid
+    // Calculate PMOS and NMOS values
+    int pmosValue = (int) std::floor(pin / 4);
+    int nmosValue = pin % 4;
+
+    turnOn(pmosValue, mcp); // Deactivate PMOS
+    turnOff(nmosValue, mcp); // Deactivate NMOS
     activeStringMaps[stringIndex] = false;
->>>>>>> 9da4b2aa4e99f470ff4bb8dd01524f194388c263
+
+
+}
+
+void turnOn(int pin, Adafruit_MCP23X17 &mcp) {
+    mcp.digitalWrite(pin, HIGH);
+}
+void turnOff(int pin, Adafruit_MCP23X17 &mcp) {
+    mcp.digitalWrite(pin, LOW);
 }

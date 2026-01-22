@@ -4,12 +4,12 @@ using namespace std;
 // Solenoid pin vectors, must be in consecutive order from lowest to highest solenoid
 
 // THESE ARE ARBITRARY VALUES, MUST BE REPLACED WITH ACTUAL PIN NUMBERS 
-std::vector<int> string1PinVec = {1,2,3};
-std::vector<int> string2PinVec = {4,5,6};
-std::vector<int> string3PinVec = {7,8,9};
-std::vector<int> string4PinVec = {10,11,12};
-std::vector<int> string5PinVec = {13,14,15};
-std::vector<int> string6PinVec = {16,17,18};
+std::vector<int> string1PinVec = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
+std::vector<int> string2PinVec = {};
+std::vector<int> string3PinVec = {};
+std::vector<int> string4PinVec = {};
+std::vector<int> string5PinVec = {};
+std::vector<int> string6PinVec = {};
 
 const std::array<std::vector<int>, 6> stringPinVecs = {
     string1PinVec, 
@@ -56,8 +56,8 @@ std::array<bool, 6> activeStringMaps = {
 };
 
 // Pin assignments {midi : pin number}
-std::map<int, int> string1MidiToPin = {};
-std::map<int, int> string2MidiToPin = {};
+std::map<int, int> string1MidiToPin = {{40,1},{41,2},{42,3},{43,4},{44,5},{45,6},{46,7},{47,8},{48,9},{49,10},{50,11},{51,12},{52,13},{53,14},{54,15},{55,16}};
+std::map<int, int> string2MidiToPin = {}; // should start at 45
 std::map<int, int> string3MidiToPin = {};
 std::map<int, int> string4MidiToPin = {};
 std::map<int, int> string5MidiToPin = {};

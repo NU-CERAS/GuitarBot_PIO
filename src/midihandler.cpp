@@ -47,17 +47,17 @@ void processMIDIByChannel(byte type, byte channel, byte note, byte velocity, std
     // turns solenoid on
     if (type == usbMIDI.NoteOn && velocity > 0) {
         Serial.println("noteon!"); 
-        solenoidOn(solenoidPin, channel - 1, stringMCPs[channel - 1]); // channel - 1 to match string index
+        solenoidOn(solenoidPin, channel - 1, test); // channel - 1 to match string index //*originally stringMCPs[channel - 1]
     }
 
     // treats NoteOn with velocity 0 as NoteOff
     else if (type == usbMIDI.NoteOn && velocity == 0) {
-        solenoidOff(solenoidPin, channel - 1, stringMCPs[channel - 1]);
+        solenoidOff(solenoidPin, channel - 1, test);
     }
 
     // turns solenoid off
     else if (type == usbMIDI.NoteOff) {
-        solenoidOff(solenoidPin, channel - 1, stringMCPs[channel - 1]); // channel - 1 to match string index
+        solenoidOff(solenoidPin, channel - 1, test); // channel - 1 to match string index
     }
 
 

@@ -16,7 +16,7 @@ Adafruit_MCP23X17 stringMCPs[numMCPs];
 
 uint8_t mcpAddresses[numMCPs] = {0x20, 0x21, 0x22, 0x23, 0x24, 0x25}; // tbd
 
-Adafruit_MCP23X17 test;
+Adafruit_MCP23X17 test;//* test
 
 
 void setup() {

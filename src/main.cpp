@@ -16,6 +16,8 @@ Adafruit_MCP23X17 stringMCPs[numMCPs];
 
 uint8_t mcpAddresses[numMCPs] = {0x20, 0x21, 0x22, 0x23, 0x24, 0x25}; // tbd
 
+Adafruit_MCP23X17 test;
+
 
 void setup() {
   // put your setup code here, to run once:
@@ -24,9 +26,11 @@ void setup() {
 
   // Initialize each multiplexer
   // Update addresses for actual board configuration
-  for (int i = 0; i < numMCPs; i++) {
-      stringMCPs[i].begin_I2C(mcpAddresses[i]);
-  }
+  // for (int i = 0; i < numMCPs; i++) {
+  //     stringMCPs[i].begin_I2C(mcpAddresses[i]);
+  // }
+  test.begin_I2C();
+
 
   // Initialize active solenoid maps
   for (size_t i = 0; i < stringPinVecs.size(); i++) {

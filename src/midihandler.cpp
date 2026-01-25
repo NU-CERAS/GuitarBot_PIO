@@ -27,9 +27,9 @@ void readAndProcessMIDI() {
 
         // handles midi by channel, channel 1: E (lower) -> channel 6: E (higher) 
         //TODO: use the array and index the array
-        if (channel == 0) processMIDIByChannel(type, channel, note, velocity, string1MidiToPin);
-        else if (channel == 1) processMIDIByChannel(type, channel, note, velocity, string2MidiToPin);
-        else if (channel == 2) processMIDIByChannel(type, channel, note, velocity, string3MidiToPin);
+        //if (channel == 0) processMIDIByChannel(type, channel, note, velocity, string1MidiToPin);
+        if (channel == 1) processMIDIByChannel(type, channel, note, velocity, string1MidiToPin);
+        else if (channel == 2) processMIDIByChannel(type, channel, note, velocity, string2MidiToPin);
         else if (channel == 3) processMIDIByChannel(type, channel, note, velocity, string4MidiToPin);
         else if (channel == 4) processMIDIByChannel(type, channel, note, velocity, string5MidiToPin);
         else if (channel == 5) processMIDIByChannel(type, channel, note, velocity, string6MidiToPin);
@@ -46,7 +46,7 @@ void processMIDIByChannel(byte type, byte channel, byte note, byte velocity, std
     Serial.println(type);
     // turns solenoid on
     if (type == usbMIDI.NoteOn && velocity > 0) {
-        Serial.println("noteon!"); 
+        //Serial.println("noteon!"); 
         solenoidOn(solenoidPin, channel - 1, test); // channel - 1 to match string index //*originally stringMCPs[channel - 1]
     }
 

@@ -31,7 +31,7 @@ void setup() {
   // }
   test.begin_I2C();
 
-
+  /*
   // Initialize active solenoid maps
   for (size_t i = 0; i < stringPinVecs.size(); i++) {
       initializeActiveSolenoidMap(stringPinVecs[i], activeStringMaps[i], stringMCPs[i]);
@@ -40,6 +40,13 @@ void setup() {
   // Initialize midi to pin assignment maps
   for (size_t i = 0; i < MidiToPinMaps.size(); i++) {
       initializeMidiToPinMap(stringPinVecs[i], MidiToPinMaps[i], stringMidiValues[i]);
+  }
+  */
+    // Initialize active solenoid maps
+  initializeActiveSolenoidMap(stringPinVecs[0], activeStringMaps[0], test);
+  
+  for (int i = 0; i < 16; i++){
+    test.digitalWrite(i, LOW);
   }
 
   Serial.println("initialized mcps, solenoid maps, midi to pin assignment maps"); 

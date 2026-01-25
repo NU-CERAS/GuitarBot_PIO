@@ -1,5 +1,11 @@
 **Dev Log**
 </n>
+
+Jan 25 2026:
+* Tested solenoid control with multi-channel midi inputs
+* Updated initialization for test board
+* Next time: Confirm board design with electrical, move on to servo actuation?
+
 Jan 18 2026:
 * Cleaned up constants files and replaced MCP23008 with MCP23017
 * Updated solenoid control to handle open strings

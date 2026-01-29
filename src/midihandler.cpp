@@ -2,6 +2,7 @@
 #include "midihandler.h"
 #include "constants.h"
 #include "solenoid-control.h"
+#include "servo-control.h"
 
 
 void readAndProcessMIDI() {
@@ -27,12 +28,12 @@ void readAndProcessMIDI() {
 
         // handles midi by channel, channel 1: E (lower) -> channel 6: E (higher) 
         //TODO: use the array and index the array
-        if (channel == 0) processMIDIByChannel(type, channel, note, velocity, string1MidiToPin);
-        else if (channel == 1) processMIDIByChannel(type, channel, note, velocity, string2MidiToPin);
-        else if (channel == 2) processMIDIByChannel(type, channel, note, velocity, string3MidiToPin);
-        else if (channel == 3) processMIDIByChannel(type, channel, note, velocity, string4MidiToPin);
-        else if (channel == 4) processMIDIByChannel(type, channel, note, velocity, string5MidiToPin);
-        else if (channel == 5) processMIDIByChannel(type, channel, note, velocity, string6MidiToPin);
+        if (channel == 1) processMIDIByChannel(type, channel, note, velocity, string1MidiToPin);
+        else if (channel == 2) processMIDIByChannel(type, channel, note, velocity, string2MidiToPin);
+        else if (channel == 3) processMIDIByChannel(type, channel, note, velocity, string3MidiToPin);
+        else if (channel == 4) processMIDIByChannel(type, channel, note, velocity, string4MidiToPin);
+        else if (channel == 5) processMIDIByChannel(type, channel, note, velocity, string5MidiToPin);
+        else if (channel == 6) processMIDIByChannel(type, channel, note, velocity, string6MidiToPin);
     }
 
 }
@@ -48,6 +49,8 @@ void processMIDIByChannel(byte type, byte channel, byte note, byte velocity, std
     if (type == usbMIDI.NoteOn && velocity > 0) {
         Serial.println("noteon!"); 
         solenoidOn(solenoidPin, channel - 1, stringMCPs[channel - 1]); // channel - 1 to match string index
+        servoAction[channel - 1] = true; // set servo action to true
+
     }
 
     // treats NoteOn with velocity 0 as NoteOff

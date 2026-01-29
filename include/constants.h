@@ -1,6 +1,7 @@
 #pragma once
 #include <map>
 #include <vector>
+#include <Servo.h>
 // using namespace std;
 
 // Pin vectors
@@ -47,5 +48,17 @@ extern std::map<int, int> string6MidiToPin;
 
 extern std::array<std::map<int, int>, 6> MidiToPinMaps;
 
+// Begin servo constants
+const int NUM_SERVOS = 6;
 
+extern const int servoPins[];
+extern const int lowPos[];
+extern const int highPos[];
+
+extern Servo servos[];
+
+// Track current servo positions, false = lowPos, true = highPos
+extern bool currentServoPositions[];
+
+extern bool servoAction[];
 

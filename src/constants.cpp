@@ -72,4 +72,28 @@ std::array<std::map<int, int>, 6> MidiToPinMaps = {
     string6MidiToPin
 };
 
+// Begin Servo constants
+
+// Servo positions
+// These arrays define the high and low positions for each of the servos controlling the guitar strumming mechanism.
+// Arbitrary values, must be tuned for actual hardware
+int highPos[NUM_SERVOS] = {80, 80, 80, 80, 80, 80};
+int lowPos[NUM_SERVOS] = {20, 20, 20, 20, 20, 20};
+
+// Stores the target position each servo should move to based on incoming MIDI velocity
+// initialized to 0 for all servos
+int servoValues[NUM_SERVOS] = {0};
+
+
+
+// 	Tracks whether each servo is currently in an active "hitting" state
+bool servoAction[NUM_SERVOS] = {false};
+
+// Servo objects for controlling each servo motor
+Servo servos[NUM_SERVOS];
+
+// Track current servo positions, false = lowPos, true = highPos
+bool currentServoPositions[NUM_SERVOS] = {false};
+const int servoPins[NUM_SERVOS] = {2, 3, 4, 5, 6, 9};
+
 

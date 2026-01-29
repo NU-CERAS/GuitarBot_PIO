@@ -2,6 +2,7 @@
 #include <Adafruit_MCP23X17.h>
 #include "midihandler.h"
 #include "constants.h"
+#include "servo-control.h"
 #include <iostream>
 // put function declarations here:
 
@@ -44,6 +45,7 @@ void setup() {
 void loop() {
   
   readAndProcessMIDI();
+  updateServoHits();
   
 //   Serial.println("Low E Size:" + String(string1MidiToPin.size()));
 //   Serial.println("A Size:" + String(string2MidiToPin.size()));

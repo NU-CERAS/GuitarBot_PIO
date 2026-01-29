@@ -4,3 +4,9 @@
 #include <Servo.h>
 
 void initializeServos();
+
+void updateServoHits();
+
+int adjustedVelocityControlByte(int velocityControlByte);
+
+int velocityControl(int changedVelocityControlByte, int servoIndex);

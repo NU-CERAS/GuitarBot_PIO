@@ -1,5 +1,12 @@
 **Dev Log**
 </n>
+
+Jan 28 2026:
+* Refactored drummer bot servo code for guitar servo actuation, including constants and control
+* Updated midihandler to include servo state updates
+* UPDATED PARTH'S VS CODE
+* Next time: Test solenoid code with real solenoids and/or test servo code on makeshift setup
+
 Jan 18 2026:
 * Cleaned up constants files and replaced MCP23008 with MCP23017
 * Updated solenoid control to handle open strings

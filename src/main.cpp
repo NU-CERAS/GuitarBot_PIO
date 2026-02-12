@@ -1,22 +1,22 @@
 #include <Arduino.h>
-#include <Adafruit_MCP23X17.h>
+#include <Adafruit_MCP23X08.h>
 #include "midihandler.h"
 #include "constants.h"
 #include <iostream>
 // put function declarations here:
 
-void initializeActiveSolenoidMap(std::vector<int> pinVec, bool &activeString, Adafruit_MCP23X17 &mcp);
+void initializeActiveSolenoidMap(std::vector<int> pinVec, bool &activeString, Adafruit_MCP23X08 &mcp);
 void initializeMidiToPinMap(std::vector<int> pinVec, std::map<int, int> &midiToPinMap, int baseMidiValue);
 
 // Assume we have 6 MCP23017 for 6 strings
 // Adjust as needed
 const int numMCPs = 6;
 
-Adafruit_MCP23X17 stringMCPs[numMCPs];
+Adafruit_MCP23X08 stringMCPs[numMCPs];
 
 uint8_t mcpAddresses[numMCPs] = {0x20, 0x21, 0x22, 0x23, 0x24, 0x25}; // tbd
 
-Adafruit_MCP23X17 test;//* test
+Adafruit_MCP23X08 test;//* test
 
 
 void setup() {
@@ -53,8 +53,14 @@ void setup() {
 }
 
 void loop() {
+  // test.digitalWrite(0, HIGH);
+  // delay(500);
+  // Serial.print("ON");
+  // test.digitalWrite(0, LOW);
+  // delay(500);
+  // Serial.print("OFF");
   
-  readAndProcessMIDI();
+  // readAndProcessMIDI();
   
 //   Serial.println("Low E Size:" + String(string1MidiToPin.size()));
 //   Serial.println("A Size:" + String(string2MidiToPin.size()));
@@ -68,7 +74,7 @@ void loop() {
 // function definitions
 
 // initializes the active solenoid map for a string
-void initializeActiveSolenoidMap(std::vector<int> pinVec, bool &activeString, Adafruit_MCP23X17 &mcp) {
+void initializeActiveSolenoidMap(std::vector<int> pinVec, bool &activeString, Adafruit_MCP23X08 &mcp) {
     activeString = false;
     for (int pin : pinVec) {
         mcp.pinMode(pin, OUTPUT);

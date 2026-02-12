@@ -30,9 +30,10 @@ void readAndProcessMIDI() {
         //if (channel == 0) processMIDIByChannel(type, channel, note, velocity, string1MidiToPin);
         if (channel == 1) processMIDIByChannel(type, channel, note, velocity, string1MidiToPin);
         else if (channel == 2) processMIDIByChannel(type, channel, note, velocity, string2MidiToPin);
-        else if (channel == 3) processMIDIByChannel(type, channel, note, velocity, string4MidiToPin);
-        else if (channel == 4) processMIDIByChannel(type, channel, note, velocity, string5MidiToPin);
-        else if (channel == 5) processMIDIByChannel(type, channel, note, velocity, string6MidiToPin);
+        else if (channel == 3) processMIDIByChannel(type, channel, note, velocity, string3MidiToPin);
+        else if (channel == 4) processMIDIByChannel(type, channel, note, velocity, string4MidiToPin);
+        else if (channel == 5) processMIDIByChannel(type, channel, note, velocity, string5MidiToPin);
+        else if (channel == 6) processMIDIByChannel(type, channel, note, velocity, string6MidiToPin);
     }
 
 }

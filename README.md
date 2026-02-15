@@ -1,6 +1,11 @@
 **Dev Log**
 </n>
 
+February 15 2026:
+* Updated constants and main for testing with two multiplexers
+* Confirmed array of multiplexers works when passed to solenoid functions
+* Next time: Test on full guitar?
+
 Jan 25 2026:
 * Tested solenoid control with multi-channel midi inputs
 * Updated initialization for test board

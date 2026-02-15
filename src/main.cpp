@@ -1,22 +1,23 @@
 #include <Arduino.h>
-#include <Adafruit_MCP23X17.h>
+#include <Adafruit_MCP23X08.h>
 #include "midihandler.h"
 #include "constants.h"
 #include <iostream>
 // put function declarations here:
 
-void initializeActiveSolenoidMap(std::vector<int> pinVec, bool &activeString, Adafruit_MCP23X17 &mcp);
+void initializeActiveSolenoidMap(std::vector<int> pinVec, bool &activeString, Adafruit_MCP23X08 &mcp);
 void initializeMidiToPinMap(std::vector<int> pinVec, std::map<int, int> &midiToPinMap, int baseMidiValue);
 
 // Assume we have 6 MCP23017 for 6 strings
 // Adjust as needed
 const int numMCPs = 6;
 
-Adafruit_MCP23X17 stringMCPs[numMCPs];
+Adafruit_MCP23X08 stringMCPs[numMCPs];
 
 uint8_t mcpAddresses[numMCPs] = {0x20, 0x21, 0x22, 0x23, 0x24, 0x25}; // tbd
 
-Adafruit_MCP23X17 test;//* test
+Adafruit_MCP23X08 test;//* test
+Adafruit_MCP23X08 test2;//* test
 
 
 void setup() {
@@ -29,8 +30,8 @@ void setup() {
   // for (int i = 0; i < numMCPs; i++) {
   //     stringMCPs[i].begin_I2C(mcpAddresses[i]);
   // }
-  test.begin_I2C();
-
+  testMCPs[0].begin_I2C(0x20);
+  testMCPs[1].begin_I2C(0x24);
   /*
   // Initialize active solenoid maps
   for (size_t i = 0; i < stringPinVecs.size(); i++) {
@@ -43,10 +44,11 @@ void setup() {
   }
   */
     // Initialize active solenoid maps
-  initializeActiveSolenoidMap(stringPinVecs[0], activeStringMaps[0], test);
-  
+  initializeActiveSolenoidMap(stringPinVecs[0], activeStringMaps[0], testMCPs[0]);
+  initializeActiveSolenoidMap(stringPinVecs[1], activeStringMaps[1], testMCPs[1]);
   for (int i = 0; i < 16; i++){
-    test.digitalWrite(i, LOW);
+    testMCPs[0].digitalWrite(i, LOW);
+    testMCPs[1].digitalWrite(i, LOW);
   }
 
   Serial.println("initialized mcps, solenoid maps, midi to pin assignment maps"); 
@@ -68,7 +70,7 @@ void loop() {
 // function definitions
 
 // initializes the active solenoid map for a string
-void initializeActiveSolenoidMap(std::vector<int> pinVec, bool &activeString, Adafruit_MCP23X17 &mcp) {
+void initializeActiveSolenoidMap(std::vector<int> pinVec, bool &activeString, Adafruit_MCP23X08 &mcp) {
     activeString = false;
     for (int pin : pinVec) {
         mcp.pinMode(pin, OUTPUT);

@@ -1,6 +1,8 @@
 #pragma once
 #include <map>
 #include <vector>
+#include <Adafruit_MCP23X08.h>
+
 // using namespace std;
 
 // Pin vectors
@@ -13,6 +15,9 @@ extern std::vector<int> string6PinVec;
 
 
 extern const std::array<std::vector<int>, 6> stringPinVecs;
+
+
+extern std::array<Adafruit_MCP23X08, 2> testMCPs;
 /*
 MIDI VALUES for each string
 */

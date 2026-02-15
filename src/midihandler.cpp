@@ -40,24 +40,29 @@ void readAndProcessMIDI() {
 // function that handles a midi signal by channel, channel 1: E (lower) -> channel 6: E (higher) 
 void processMIDIByChannel(byte type, byte channel, byte note, byte velocity, std::map<int, int>midiToPinDict) {
     // maps the midi to solenoid
+    if (midiToPinDict.find(note) == midiToPinDict.end()) {
+        Serial.println("Warning: Received MIDI note " + String(note) + " which is not mapped to any solenoid.");
+        return;
+    }
     int solenoidPin = midiToPinDict[note]; 
+    
 
     Serial.println("type:");
     Serial.println(type);
     // turns solenoid on
     if (type == usbMIDI.NoteOn && velocity > 0) {
         //Serial.println("noteon!"); 
-        solenoidOn(solenoidPin, channel - 1, test); // channel - 1 to match string index //*originally stringMCPs[channel - 1]
+        solenoidOn(solenoidPin, channel - 1, testMCPs[channel - 1]); // channel - 1 to match string index //*originally stringMCPs[channel - 1]
     }
 
     // treats NoteOn with velocity 0 as NoteOff
     else if (type == usbMIDI.NoteOn && velocity == 0) {
-        solenoidOff(solenoidPin, channel - 1, test);
+        solenoidOff(solenoidPin, channel - 1, testMCPs[channel - 1]);
     }
 
     // turns solenoid off
     else if (type == usbMIDI.NoteOff) {
-        solenoidOff(solenoidPin, channel - 1, test); // channel - 1 to match string index
+        solenoidOff(solenoidPin, channel - 1, testMCPs[channel - 1]); // channel - 1 to match string index
     }
 
 

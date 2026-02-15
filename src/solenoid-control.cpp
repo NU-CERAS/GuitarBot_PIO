@@ -3,7 +3,7 @@
 #include <Arduino.h>
 
 // Activates the solenoid on the specified pin for the given string
-void solenoidOn(int pin, int stringIndex, Adafruit_MCP23X17 &mcp) {
+void solenoidOn(int pin, int stringIndex, Adafruit_MCP23X08 &mcp) {
 
     // Check if another solenoid is already active on this string
     bool &activeString = activeStringMaps[stringIndex];
@@ -29,7 +29,7 @@ void solenoidOn(int pin, int stringIndex, Adafruit_MCP23X17 &mcp) {
     }
 
 // Deactivates the solenoid on the specified pin for the given string
-void solenoidOff(int pin, int stringIndex, Adafruit_MCP23X17 &mcp) {
+void solenoidOff(int pin, int stringIndex, Adafruit_MCP23X08 &mcp) {
     // Deactivate the solenoid
     mcp.digitalWrite(pin, LOW);
     activeStringMaps[stringIndex] = false;

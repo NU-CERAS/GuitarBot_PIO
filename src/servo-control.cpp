@@ -28,7 +28,7 @@ int velocityControl(int changedVelocityControlByte, int servoIndex) {
 void initializeServos() {
   for (int i = 0; i < NUM_SERVOS; i++) {
     servos[i].attach(servoPins[i]);    // Attach the servo to its PWM pin
-    servos[i].write(lowPos[i]);        // Move the servo to its low position
+    servos[i].write(0);        // Move the servo to its low position
   }
 }
 

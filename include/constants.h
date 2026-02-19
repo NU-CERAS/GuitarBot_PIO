@@ -13,7 +13,7 @@ extern std::vector<int> string5PinVec;
 extern std::vector<int> string6PinVec;
 
 
-extern const std::array<std::vector<int>, 6> stringPinVecs;
+extern const std::array<std::vector<int>, 2> stringPinVecs;
 /*
 MIDI VALUES for each string
 */
@@ -49,11 +49,11 @@ extern std::map<int, int> string6MidiToPin;
 extern std::array<std::map<int, int>, 6> MidiToPinMaps;
 
 // Begin servo constants
-const int NUM_SERVOS = 6;
+const int NUM_SERVOS = 1;
 
-extern const int servoPins[];
-extern const int lowPos[];
-extern const int highPos[];
+extern int servoPins[];
+extern int lowPos[];
+extern int highPos[];
 
 extern Servo servos[];
 

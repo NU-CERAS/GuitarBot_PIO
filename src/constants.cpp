@@ -4,24 +4,25 @@ using namespace std;
 // Solenoid pin vectors, must be in consecutive order from lowest to highest solenoid
 
 // THESE ARE ARBITRARY VALUES, MUST BE REPLACED WITH ACTUAL PIN NUMBERS 
-std::vector<int> string1PinVec = {1,2,3};
-std::vector<int> string2PinVec = {4,5,6};
-std::vector<int> string3PinVec = {7,8,9};
-std::vector<int> string4PinVec = {10,11,12};
-std::vector<int> string5PinVec = {13,14,15};
-std::vector<int> string6PinVec = {16,17,18};
+std::vector<int> string1PinVec = {0,1,2,3};
+std::vector<int> string2PinVec = {0,1,2,3};
+std::vector<int> string3PinVec = {};
+std::vector<int> string4PinVec = {};
+std::vector<int> string5PinVec = {};
+std::vector<int> string6PinVec = {};
 
-const std::array<std::vector<int>, 6> stringPinVecs = {
+const std::array<std::vector<int>, 2> stringPinVecs = {
     string1PinVec, 
-    string2PinVec, 
+    string2PinVec};
+/*
     string3PinVec, 
     string4PinVec, 
     string5PinVec, 
     string6PinVec
 };
-
+*/
 // MIDI VALUES
-const int string1Midi = 40;
+const int string1Midi = 20;
 const int string2Midi = 45;
 const int string3Midi = 50;
 const int string4Midi = 55;
@@ -77,9 +78,8 @@ std::array<std::map<int, int>, 6> MidiToPinMaps = {
 // Servo positions
 // These arrays define the high and low positions for each of the servos controlling the guitar strumming mechanism.
 // Arbitrary values, must be tuned for actual hardware
-int highPos[NUM_SERVOS] = {80, 80, 80, 80, 80, 80};
-int lowPos[NUM_SERVOS] = {20, 20, 20, 20, 20, 20};
-
+int highPos[NUM_SERVOS] = {80};
+int lowPos[NUM_SERVOS] = {20};
 // Stores the target position each servo should move to based on incoming MIDI velocity
 // initialized to 0 for all servos
 int servoValues[NUM_SERVOS] = {0};
@@ -94,6 +94,6 @@ Servo servos[NUM_SERVOS];
 
 // Track current servo positions, false = lowPos, true = highPos
 bool currentServoPositions[NUM_SERVOS] = {false};
-const int servoPins[NUM_SERVOS] = {2, 3, 4, 5, 6, 9};
+int servoPins[NUM_SERVOS] = {7};
 
 

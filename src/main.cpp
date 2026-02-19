@@ -11,11 +11,11 @@ void initializeMidiToPinMap(std::vector<int> pinVec, std::map<int, int> &midiToP
 
 // Assume we have 6 MCP23017 for 6 strings
 // Adjust as needed
-const int numMCPs = 6;
+const int numMCPs = 2;
 
 Adafruit_MCP23X17 stringMCPs[numMCPs];
 
-uint8_t mcpAddresses[numMCPs] = {0x20, 0x21, 0x22, 0x23, 0x24, 0x25}; // tbd
+uint8_t mcpAddresses[numMCPs] = {0x20, 0x24}; // tbd
 
 
 void setup() {
@@ -23,6 +23,7 @@ void setup() {
   Serial.begin(9600);
   Serial.println("setup ran"); 
 
+  /*
   // Initialize each multiplexer
   // Update addresses for actual board configuration
   for (int i = 0; i < numMCPs; i++) {
@@ -38,6 +39,8 @@ void setup() {
   for (size_t i = 0; i < MidiToPinMaps.size(); i++) {
       initializeMidiToPinMap(stringPinVecs[i], MidiToPinMaps[i], stringMidiValues[i]);
   }
+    */
+  initializeServos();
 
   Serial.println("initialized mcps, solenoid maps, midi to pin assignment maps"); 
 }
@@ -45,7 +48,13 @@ void setup() {
 void loop() {
   
   readAndProcessMIDI();
+  //servoAction[0] = true;
+  //Serial.println("loop ran");
+  //digitalWrite(7, HIGH);
   updateServoHits();
+  //delay(1000); // Delay to allow time for servo action to be visible in testing
+  //digitalWrite(7, LOW);
+
   
 //   Serial.println("Low E Size:" + String(string1MidiToPin.size()));
 //   Serial.println("A Size:" + String(string2MidiToPin.size()));

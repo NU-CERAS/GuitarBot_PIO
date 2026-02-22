@@ -17,7 +17,7 @@ extern std::vector<int> string6PinVec;
 extern const std::array<std::vector<int>, 6> stringPinVecs;
 
 
-extern std::array<Adafruit_MCP23X08, 2> testMCPs;
+extern std::array<Adafruit_MCP23X08, 3> testMCPs;
 /*
 MIDI VALUES for each string
 */

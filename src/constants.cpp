@@ -4,14 +4,9 @@ using namespace std;
 // Solenoid pin vectors, must be in consecutive order from lowest to highest solenoid
 
 // THESE ARE ARBITRARY VALUES, MUST BE REPLACED WITH ACTUAL PIN NUMBERS 
-<<<<<<< HEAD
-std::vector<int> string1PinVec = {0};
-std::vector<int> string2PinVec = {1};
-=======
 std::vector<int> string1PinVec = {0,1,2,3,4,5,6,7};
 std::vector<int> string2PinVec = {8,9,10,11,12,13,14,15}; // should start at 8
->>>>>>> ebb925aad10bf6d3932f22d70ebc7d590e155986
-std::vector<int> string3PinVec = {};
+std::vector<int> string3PinVec = {0,1,2,3};
 std::vector<int> string4PinVec = {};
 std::vector<int> string5PinVec = {};
 std::vector<int> string6PinVec = {};
@@ -25,7 +20,8 @@ const std::array<std::vector<int>, 6> stringPinVecs = {
     string6PinVec
 };
 
-std::array<Adafruit_MCP23X08, 2> testMCPs = {
+std::array<Adafruit_MCP23X08, 3> testMCPs = {
+    Adafruit_MCP23X08(),
     Adafruit_MCP23X08(),
     Adafruit_MCP23X08()
 };
@@ -66,17 +62,10 @@ std::array<bool, 6> activeStringMaps = {
 };
 
 // Pin assignments {midi : pin number}
-<<<<<<< HEAD
-std::map<int, int> string1MidiToPin = {{52,0}};
-std::map<int, int> string2MidiToPin = {{57,1}};
-std::map<int, int> string3MidiToPin = {{62,2}};
-std::map<int, int> string4MidiToPin = {{67,3}};
-=======
-std::map<int, int> string1MidiToPin = {{16,0},{17,1},{18,2},{19,3}};
-std::map<int, int> string2MidiToPin = {{24,0},{25,1},{26,2},{27,3}}; // should start at 45
-std::map<int, int> string3MidiToPin = {};
+std::map<int, int> string1MidiToPin = {{52,0},{67,3}};//{{16,0},{17,1},{18,2},{19,3}};
+std::map<int, int> string2MidiToPin = {};//{{24,0},{25,1},{26,2},{27,3}}; // should start at 45
+std::map<int, int> string3MidiToPin = {{62,2}, {63,0}};
 std::map<int, int> string4MidiToPin = {};
->>>>>>> ebb925aad10bf6d3932f22d70ebc7d590e155986
 std::map<int, int> string5MidiToPin = {};
 std::map<int, int> string6MidiToPin = {};
 

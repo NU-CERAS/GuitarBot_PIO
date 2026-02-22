@@ -14,7 +14,7 @@ const int numMCPs = 6;
 
 Adafruit_MCP23X08 stringMCPs[numMCPs];
 
-uint8_t mcpAddresses[numMCPs] = {0x20, 0x21, 0x22, 0x23, 0x24, 0x25}; // tbd
+uint8_t mcpAddresses[numMCPs] = {0x20, 0x24}; // tbd
 
 Adafruit_MCP23X08 test;//* test
 Adafruit_MCP23X08 test2;//* test
@@ -31,7 +31,8 @@ void setup() {
   //     stringMCPs[i].begin_I2C(mcpAddresses[i]);
   // }
   testMCPs[0].begin_I2C(0x20);
-  testMCPs[1].begin_I2C(0x24);
+  testMCPs[1].begin_I2C(0xFF); // *dummy multiplexer
+  testMCPs[2].begin_I2C(0x24);
   /*
   // Initialize active solenoid maps
   for (size_t i = 0; i < stringPinVecs.size(); i++) {
@@ -45,10 +46,10 @@ void setup() {
   */
     // Initialize active solenoid maps
   initializeActiveSolenoidMap(stringPinVecs[0], activeStringMaps[0], testMCPs[0]);
-  initializeActiveSolenoidMap(stringPinVecs[1], activeStringMaps[1], testMCPs[1]);
+  initializeActiveSolenoidMap(stringPinVecs[2], activeStringMaps[2], testMCPs[2]);
   for (int i = 0; i < 16; i++){
     testMCPs[0].digitalWrite(i, LOW);
-    testMCPs[1].digitalWrite(i, LOW);
+    testMCPs[2].digitalWrite(i, LOW);
   }
 
   Serial.println("initialized mcps, solenoid maps, midi to pin assignment maps"); 
@@ -62,7 +63,7 @@ void loop() {
   // delay(500);
   // Serial.print("OFF");
   
-  // readAndProcessMIDI();
+  readAndProcessMIDI();
   
 //   Serial.println("Low E Size:" + String(string1MidiToPin.size()));
 //   Serial.println("A Size:" + String(string2MidiToPin.size()));

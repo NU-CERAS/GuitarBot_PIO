@@ -1,6 +1,10 @@
 **Dev Log**
 </n>
 
+February 25 2026:
+* Small structural fixes to reduce errors during testing
+* Next time: Test solenoid and servo actuation with midi notes at same time
+
 Jan 28 2026:
 * Refactored drummer bot servo code for guitar servo actuation, including constants and control
 * Updated midihandler to include servo state updates

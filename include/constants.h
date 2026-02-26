@@ -62,3 +62,4 @@ extern bool currentServoPositions[];
 
 extern bool servoAction[];
 
+extern int servoValues[]; 

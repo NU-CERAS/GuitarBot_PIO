@@ -41,6 +41,10 @@ void readAndProcessMIDI() {
 // function that handles a midi signal by channel, channel 1: E (lower) -> channel 6: E (higher) 
 void processMIDIByChannel(byte type, byte channel, byte note, byte velocity, std::map<int, int>midiToPinDict) {
     // maps the midi to solenoid
+    if (midiToPinDict.find(note) == midiToPinDict.end()) {
+        Serial.println("Warning: MIDI note " + String(note) + " not found in MIDI-to-pin mapping for channel " + String(channel));
+        return;
+    }
     int solenoidPin = midiToPinDict[note]; 
 
     Serial.println("type:");

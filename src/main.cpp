@@ -60,7 +60,7 @@ void loop() {
   // delay(500);
   // Serial.print("OFF");
   
-  // readAndProcessMIDI();
+  readAndProcessMIDI();
   
 //   Serial.println("Low E Size:" + String(string1MidiToPin.size()));
 //   Serial.println("A Size:" + String(string2MidiToPin.size()));

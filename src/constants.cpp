@@ -56,7 +56,7 @@ std::array<bool, 6> activeStringMaps = {
 };
 
 // Pin assignments {midi : pin number}
-std::map<int, int> string1MidiToPin = {{52,0}};
+std::map<int, int> string1MidiToPin = {{55,2}}; //* changed to note 55, pin 2
 std::map<int, int> string2MidiToPin = {{57,1}};
 std::map<int, int> string3MidiToPin = {{62,2}};
 std::map<int, int> string4MidiToPin = {{67,3}};

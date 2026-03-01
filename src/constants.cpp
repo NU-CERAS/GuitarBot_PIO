@@ -62,7 +62,7 @@ std::array<bool, 6> activeStringMaps = {
 };
 
 // Pin assignments {midi : pin number}
-std::map<int, int> string1MidiToPin = {{52,0},{67,3}};//{{16,0},{17,1},{18,2},{19,3}};
+std::map<int, int> string1MidiToPin = {{55,2}};//{52,0},{67,3} - from feb 22 //*{55,2} is the correct configuration for the 3rd solenoid on the 1st string (E)
 std::map<int, int> string2MidiToPin = {};//{{24,0},{25,1},{26,2},{27,3}}; // should start at 45
 std::map<int, int> string3MidiToPin = {{62,2}, {63,0}};
 std::map<int, int> string4MidiToPin = {};

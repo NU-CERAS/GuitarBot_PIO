@@ -2,6 +2,7 @@
 #include <map>
 #include <vector>
 #include <Adafruit_MCP23X08.h>
+#include <Servo.h> //* copied from main
 
 // using namespace std;
 
@@ -53,4 +54,19 @@ extern std::map<int, int> string6MidiToPin;
 extern std::array<std::map<int, int>, 6> MidiToPinMaps;
 
 
+//* copied from main
+// Begin servo constants
+const int NUM_SERVOS = 1;
 
+extern int servoPins[];
+extern int lowPos[];
+extern int highPos[];
+
+extern Servo servos[];
+
+// Track current servo positions, false = lowPos, true = highPos
+extern bool currentServoPositions[];
+
+extern bool servoAction[];
+
+extern int servoValues[]; 

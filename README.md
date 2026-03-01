@@ -4,6 +4,7 @@
 March 1 2026:
 * Tested and made sure a singular solenoid works on the updated two-multiplexer code
 * Copied and pasted servo code to both LED Testing (two multiplexer code) and 08-LED Testing branches
+* Figured out how to properly read & work with the breadboard and power (!!)
 * Instructions for testing solenoids and servos simultaneously, for next time:
     * plug laptop to other teensy (servo)
     * anything coming from the original teensy is now coming from the new teensy

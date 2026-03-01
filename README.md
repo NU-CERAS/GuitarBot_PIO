@@ -1,5 +1,17 @@
 **Dev Log**
 </n>
+March 1 2026:
+* Tested and made sure a singular solenoid works on the updated two-multiplexer code
+* Copied and pasted servo code to both LED Testing (two multiplexer code) and 08-LED Testing branches
+* Instructions for testing solenoids and servos simultaneously, for next time:
+    * plug laptop to other teensy (servo)
+    * anything coming from the original teensy is now coming from the new teensy
+    * green and yellow wires: new teensy -> 2nd board
+    * (move g and y to new teensy from old, but they are switched)
+    * connect ground to ground and power to power
+    * careful about which power! teensy power has to go where teensy power was (3V, red wire from screw terminatl to old teensy -> 3V)
+    * power to power (big power from new teensy can go inside DC power supply along with the regular thin wires)
+
 
 February 25 2026:
 * Small structural fixes to reduce errors during testing

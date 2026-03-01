@@ -1,5 +1,6 @@
 **Dev Log**
 </n>
+
 March 1 2026:
 * Tested and made sure a singular solenoid works on the updated two-multiplexer code
 * Copied and pasted servo code to both LED Testing (two multiplexer code) and 08-LED Testing branches

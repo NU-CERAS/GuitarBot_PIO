@@ -2,6 +2,7 @@
 #include "midihandler.h"
 #include "constants.h"
 #include "solenoid-control.h"
+#include "servo-control.h"
 
 
 void readAndProcessMIDI() {
@@ -27,7 +28,6 @@ void readAndProcessMIDI() {
 
         // handles midi by channel, channel 1: E (lower) -> channel 6: E (higher) 
         //TODO: use the array and index the array
-        //if (channel == 0) processMIDIByChannel(type, channel, note, velocity, string1MidiToPin);
         if (channel == 1) processMIDIByChannel(type, channel, note, velocity, string1MidiToPin);
         else if (channel == 2) processMIDIByChannel(type, channel, note, velocity, string2MidiToPin);
         else if (channel == 3) processMIDIByChannel(type, channel, note, velocity, string3MidiToPin);
@@ -42,28 +42,29 @@ void readAndProcessMIDI() {
 void processMIDIByChannel(byte type, byte channel, byte note, byte velocity, std::map<int, int>midiToPinDict) {
     // maps the midi to solenoid
     if (midiToPinDict.find(note) == midiToPinDict.end()) {
-        Serial.println("Warning: Received MIDI note " + String(note) + " which is not mapped to any solenoid.");
+        Serial.println("Warning: MIDI note " + String(note) + " not found in MIDI-to-pin mapping for channel " + String(channel));
         return;
     }
     int solenoidPin = midiToPinDict[note]; 
-    
 
     Serial.println("type:");
     Serial.println(type);
     // turns solenoid on
     if (type == usbMIDI.NoteOn && velocity > 0) {
-        //Serial.println("noteon!"); 
-        solenoidOn(solenoidPin, channel - 1, testMCPs[channel - 1]); // channel - 1 to match string index //*originally stringMCPs[channel - 1]
+        Serial.println("noteon!"); 
+        solenoidOn(solenoidPin, channel - 1, stringMCPs[channel - 1]); // channel - 1 to match string index
+        servoAction[channel - 1] = true; // set servo action to true
+
     }
 
     // treats NoteOn with velocity 0 as NoteOff
     else if (type == usbMIDI.NoteOn && velocity == 0) {
-        solenoidOff(solenoidPin, channel - 1, testMCPs[channel - 1]);
+        solenoidOff(solenoidPin, channel - 1, stringMCPs[channel - 1]);
     }
 
     // turns solenoid off
     else if (type == usbMIDI.NoteOff) {
-        solenoidOff(solenoidPin, channel - 1, testMCPs[channel - 1]); // channel - 1 to match string index
+        solenoidOff(solenoidPin, channel - 1, stringMCPs[channel - 1]); // channel - 1 to match string index
     }
 
 

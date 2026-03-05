@@ -8,7 +8,7 @@ std::vector<int> string1PinVec = {0,1,2,3,4,5,6,7};
 std::vector<int> string2PinVec = {8,9,10,11,12,13,14,15}; // should start at 8
 std::vector<int> string3PinVec = {0,1,2,3};
 std::vector<int> string4PinVec = {};
-std::vector<int> string5PinVec = {};
+std::vector<int> string5PinVec = {0,1,2,3};
 std::vector<int> string6PinVec = {};
 
 const std::array<std::vector<int>, 6> stringPinVecs = {
@@ -20,7 +20,9 @@ const std::array<std::vector<int>, 6> stringPinVecs = {
     string6PinVec
 };
 
-std::array<Adafruit_MCP23X08, 3> testMCPs = {
+std::array<Adafruit_MCP23X08, 5> testMCPs = {
+    Adafruit_MCP23X08(),
+    Adafruit_MCP23X08(),
     Adafruit_MCP23X08(),
     Adafruit_MCP23X08(),
     Adafruit_MCP23X08()
@@ -62,11 +64,11 @@ std::array<bool, 6> activeStringMaps = {
 };
 
 // Pin assignments {midi : pin number}
-std::map<int, int> string1MidiToPin = {{55,2}};//{52,0},{67,3} - from feb 22 //*{55,2} is the correct configuration for the 3rd solenoid on the 1st string (E)
+std::map<int, int> string1MidiToPin = {{55,0}};//{52,0},{67,3} - from feb 22 //*{55,2} is the correct configuration for the 3rd solenoid on the 1st string (E)
 std::map<int, int> string2MidiToPin = {};//{{24,0},{25,1},{26,2},{27,3}}; // should start at 45
-std::map<int, int> string3MidiToPin = {{62,2}, {63,0}};
+std::map<int, int> string3MidiToPin = {};
 std::map<int, int> string4MidiToPin = {};
-std::map<int, int> string5MidiToPin = {};
+std::map<int, int> string5MidiToPin = {{56,2}};
 std::map<int, int> string6MidiToPin = {};
 
 std::array<std::map<int, int>, 6> MidiToPinMaps = {
@@ -79,3 +81,25 @@ std::array<std::map<int, int>, 6> MidiToPinMaps = {
 };
 
 
+// Begin Servo constants
+
+// Servo positions
+// These arrays define the high and low positions for each of the servos controlling the guitar strumming mechanism.
+// Arbitrary values, must be tuned for actual hardware
+int highPos[NUM_SERVOS] = {100, 100};
+int lowPos[NUM_SERVOS] = {40, 40};
+// Stores the target position each servo should move to based on incoming MIDI velocity
+// initialized to 0 for all servos
+int servoValues[NUM_SERVOS] = {0, 0};
+
+
+
+// 	Tracks whether each servo is currently in an active "hitting" state
+bool servoAction[NUM_SERVOS] = {false, false};
+
+// Servo objects for controlling each servo motor
+Servo servos[NUM_SERVOS];
+
+// Track current servo positions, false = lowPos, true = highPos
+bool currentServoPositions[NUM_SERVOS] = {false, false};
+int servoPins[NUM_SERVOS] = {7, 9};

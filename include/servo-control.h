@@ -4,3 +4,4 @@
 #include <Servo.h>
 
 void initializeServos();
+void updateServoHits();

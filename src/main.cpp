@@ -2,6 +2,7 @@
 #include <Adafruit_MCP23X08.h>
 #include "midihandler.h"
 #include "constants.h"
+#include "servo-control.h"
 #include <iostream>
 // put function declarations here:
 
@@ -32,7 +33,9 @@ void setup() {
   // }
   testMCPs[0].begin_I2C(0x20);
   testMCPs[1].begin_I2C(0xFF); // *dummy multiplexer
-  testMCPs[2].begin_I2C(0x24);
+  testMCPs[2].begin_I2C(0xFF); // *dummy multiplexer
+  testMCPs[3].begin_I2C(0xFF); // *dummy multiplexer
+  testMCPs[4].begin_I2C(0x24);
   /*
   // Initialize active solenoid maps
   for (size_t i = 0; i < stringPinVecs.size(); i++) {
@@ -46,11 +49,13 @@ void setup() {
   */
     // Initialize active solenoid maps
   initializeActiveSolenoidMap(stringPinVecs[0], activeStringMaps[0], testMCPs[0]);
-  initializeActiveSolenoidMap(stringPinVecs[2], activeStringMaps[2], testMCPs[2]);
+  initializeActiveSolenoidMap(stringPinVecs[4], activeStringMaps[4], testMCPs[4]);
   for (int i = 0; i < 16; i++){
     testMCPs[0].digitalWrite(i, LOW);
-    testMCPs[2].digitalWrite(i, LOW);
+    testMCPs[4].digitalWrite(i, LOW);
   }
+
+  initializeServos(); //* initialize
 
   Serial.println("initialized mcps, solenoid maps, midi to pin assignment maps"); 
 }
@@ -64,6 +69,8 @@ void loop() {
   // Serial.print("OFF");
   
   readAndProcessMIDI();
+
+  updateServoHits();//* servo
   
 //   Serial.println("Low E Size:" + String(string1MidiToPin.size()));
 //   Serial.println("A Size:" + String(string2MidiToPin.size()));

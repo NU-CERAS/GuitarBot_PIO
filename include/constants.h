@@ -18,7 +18,7 @@ extern std::vector<int> string6PinVec;
 extern const std::array<std::vector<int>, 6> stringPinVecs;
 
 
-extern std::array<Adafruit_MCP23X08, 3> testMCPs;
+extern std::array<Adafruit_MCP23X08, 5> testMCPs;
 /*
 MIDI VALUES for each string
 */
@@ -56,7 +56,7 @@ extern std::array<std::map<int, int>, 6> MidiToPinMaps;
 
 //* copied from main
 // Begin servo constants
-const int NUM_SERVOS = 1;
+const int NUM_SERVOS = 2;
 
 extern int servoPins[];
 extern int lowPos[];
